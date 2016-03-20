@@ -21,7 +21,9 @@
 int addr = 0;
 int upperAddr = 0;
 
-int loopVal = 10; //change for servo turn tuning
+int forwardLoopVal = 30;  //change for servo forward/backward tuning
+int turningLoopVal = 11;  //change for servo turn tuning
+int delayReplay = 1000;   //change for dleay between replaying commands
 
 int lowLED = 13;
 int midLED = 12;
@@ -48,6 +50,9 @@ unsigned long batteryFlashTime;
 
 Servo leftServo; //180
 Servo rightServo;
+
+int memory[100];
+int memoryPtr = 0;
 
 void setup() {
   pinMode(lowLED, OUTPUT);
@@ -119,16 +124,19 @@ void startup() {
   }
 }
 
+void addToMemory(int dir){
+ memory[memoryPtr] = dir;
+ memoryPtr++; 
+}
+
 void buttonCheck(){
-  int maxAddr = 255;
+
   if (digitalRead(fwd) == 1) {
-    if (addr >= maxAddr) {
+    if (memoryPtr >= 100) {
       error();
     }
     else {
-      EEPROM.write(addr,1);
-      EEPROM.write(addr+256,1);//for backup
-      addr++;
+      addToMemory(fwd);
       while(digitalRead(fwd) == 1) {
         light(7, true);
       }
@@ -136,13 +144,11 @@ void buttonCheck(){
     }
   }
   else if(digitalRead(bck) == 1) {
-    if (addr >= maxAddr) {
+    if (memoryPtr >= 100) {
       error();
     }
     else {
-      EEPROM.write(addr,2);
-      EEPROM.write(addr+256,2);//for backup
-      addr++;
+      addToMemory(bck);
       while(digitalRead(bck) == 1) {
         light(4, true);
       }
@@ -150,13 +156,11 @@ void buttonCheck(){
     }
   }
   else if(digitalRead(lft) == 1) {
-    if (addr >= maxAddr) {
+    if (memoryPtr >= 100) {
       error();
     }
     else {
-      EEPROM.write(addr,3);
-      EEPROM.write(addr+256,3);//for backup
-      addr++;
+      addToMemory(lft);
       while(digitalRead(lft) == 1) {
         light(5, true);
       }
@@ -164,13 +168,11 @@ void buttonCheck(){
     }
   }
   else if(digitalRead(rht) == 1) {
-    if (addr >= maxAddr) {
+    if (memoryPtr >= 100) {
       error();
     }
     else {
-      EEPROM.write(addr,4);
-      EEPROM.write(addr+256,4);//for backup
-      addr++;
+      addToMemory(rht);
       while(digitalRead(rht) == 1) {
         light(6, true);
       }
@@ -215,6 +217,25 @@ void wait() {
   light(6, false);
   light(4, false);
   light(5, false);
+}
+
+void run() {
+  int command;
+   for (int i = 0; i < memoryPtr; i++) {
+     command = memory[i];
+     if (command == fwd) {
+       forward();
+     }
+     else if (command == bck) {
+       reverse();
+     }
+     else if (command == lft) {
+       left();
+     }
+     else if (command == rht) {
+       right();
+     }
+   }
 }
 
 void error() {
