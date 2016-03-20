@@ -180,13 +180,24 @@ void buttonCheck(){
     }
   }
   else if(digitalRead(ent) == 1) {
+    int timePressed = 0;
+    while(digitalRead(ent) == 1) {
+      delay(1);
+      timePressed = timePressed + 1;
+      if (timePressed > 3000){
+        memory[100];
+        memoryPtr = 0;
+        startup();
+        return; 
+      }
+      
+    }
     wait();
     run();
   }
 }
  
 void wait() {
-  //7645
   int countDownDelay = 500;
   light(7, false);
   light(6, false);
