@@ -38,13 +38,13 @@ int rht = 2;
 int ent = 4;
 
 int usbLev = 512;
-int battLowLev = 717;
-int battMidLev = 800;
-int battHighLev = 875;
-boolean changeBatt = false;
-boolean battToggle = false;
-int battFlashDelay = 100;
-unsigned long battFlashTime;
+int batteryLowLev = 717;
+int batteryMidLev = 800;
+int batteryHighLev = 875;
+boolean changeBattery = false;
+boolean batteryToggle = false;
+int batteryFlashDelay = 100;
+unsigned long batteryFlashTime;
 
 Servo leftServo; //180
 Servo rightServo;
@@ -77,14 +77,14 @@ void setup() {
 }
 
 void loop() {
-  if (changeBatt) {
-    if (millis() >= battFlashTime) {
-      battFlashTime += battFlashDelay;
-      battToggle = !battToggle;
-      light(1, battToggle);
+  if (changeBattery) {
+    if (millis() >= batteryFlashTime) {
+      batteryFlashTime += batteryFlashDelay;
+      batteryToggle = !batteryToggle;
+      light(1, batteryToggle);
     }
   }
-  battCheck();
+  batteryCheck();
   buttonCheck();
   
   //default sit idle
@@ -232,32 +232,32 @@ void error() {
   }
 }
 
-void battCheck(){
-  int battLevel = analogRead(0);
-  if (battLevel < battLowLev && battLevel > usbLev) {
-    changeBatt = true;
+void batteryCheck(){
+  int batteryLevel = analogRead(0);
+  if (batteryLevel < batteryLowLev && batteryLevel > usbLev) {
+    changeBattery = true;
     light(2, false);
     light(3, false);
   }
   else {
-    changeBatt = false;
+    changeBattery = false;
   }
-  if (battLevel <= usbLev) {
+  if (batteryLevel <= usbLev) {
     light(1, false);
     light(2, false);
     light(3, false);
   }
-  else if (battLevel >= battLowLev && battLevel < battMidLev) {
+  else if (batteryLevel >= batteryLowLev && batteryLevel < batteryMidLev) {
     light(1, true);
     light(2, false);
     light(3, false);
   }
-  else if (battLevel >= battMidLev && battLevel < battHighLev) {
+  else if (batteryLevel >= batteryMidLev && batteryLevel < batteryHighLev) {
     light(1, true);
     light(2, true);
     light(3, false);
   }
-  else if (battLevel >= battHighLev) {
+  else if (batteryLevel >= batteryHighLev) {
     light(1, true);
     light(2, true);
     light(3, true);
