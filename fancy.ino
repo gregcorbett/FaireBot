@@ -55,3 +55,105 @@ void wait() {
   light(4, false);
   light(5, false);
 }
+
+void batteryCheck(){
+  int batteryLevel = analogRead(0);
+  if (batteryLevel < batteryLowLev && batteryLevel > usbLev) {
+    changeBattery = true;
+    light(2, false);
+    light(3, false);
+  }
+  else {
+    changeBattery = false;
+  }
+  if (batteryLevel <= usbLev) {
+    light(1, false);
+    light(2, false);
+    light(3, false);
+  }
+  else if (batteryLevel >= batteryLowLev && batteryLevel < batteryMidLev) {
+    light(1, true);
+    light(2, false);
+    light(3, false);
+  }
+  else if (batteryLevel >= batteryMidLev && batteryLevel < batteryHighLev) {
+    light(1, true);
+    light(2, true);
+    light(3, false);
+  }
+  else if (batteryLevel >= batteryHighLev) {
+    light(1, true);
+    light(2, true);
+    light(3, true);
+  }
+
+  if (changeBattery) {
+    if (millis() >= batteryFlashTime) {
+      batteryFlashTime += batteryFlashDelay;
+      batteryToggle = !batteryToggle;
+      light(1, batteryToggle);
+    }
+  }
+}     
+
+void light(int led, boolean state) {
+  switch (led) {
+  case 1:
+    if (state) {
+      digitalWrite(lowLED, HIGH);
+    }
+    else {
+      digitalWrite(lowLED, LOW);
+    }
+    break;
+  case 2:
+    if (state) {
+      digitalWrite(midLED, HIGH);
+    }
+    else {
+      digitalWrite(midLED, LOW);
+    }
+    break;
+  case 3:
+    if (state) {
+      digitalWrite(highLED, HIGH);
+    }
+    else {
+      digitalWrite(highLED, LOW);
+    }
+    break;
+  case 4:
+    if (state) {
+      digitalWrite(bckLED, HIGH);
+    }
+    else {
+      digitalWrite(bckLED, LOW);
+    }
+    break;
+  case 5:
+    if (state) {
+      digitalWrite(lftLED, HIGH);
+    }
+    else {
+      digitalWrite(lftLED, LOW);
+    }
+    break;
+  case 6:
+    if (state) {
+      digitalWrite(rhtLED, HIGH);
+    }
+    else {
+      digitalWrite(rhtLED, LOW);
+    }
+    break;
+  case 7:
+    if (state) {
+      digitalWrite(fwdLED, HIGH);
+    }
+    else {
+      digitalWrite(fwdLED, LOW);
+    }
+    break;
+  }
+}
+
