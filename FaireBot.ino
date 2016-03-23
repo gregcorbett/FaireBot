@@ -16,7 +16,6 @@
 
 
 #include <Servo.h>
-#include <EEPROM.h>
 
 int forwardLoopVal = 30;  // change for servo forward/backward tuning
 int turningLoopVal = 11;  // change for servo turn tuning
