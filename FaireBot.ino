@@ -58,6 +58,8 @@ int memory[100];
 int memoryPtr = 0;
 
 void setup() {
+
+  // set the output pins
   pinMode(lowLED, OUTPUT);
   pinMode(midLED, OUTPUT);
   pinMode(highLED, OUTPUT);
@@ -66,40 +68,29 @@ void setup() {
   pinMode(lftLED, OUTPUT);
   pinMode(rhtLED, OUTPUT);
 
+  // set the input pins
   pinMode(fwd, INPUT);
   pinMode(bck, INPUT);
   pinMode(lft, INPUT);
   pinMode(rht, INPUT);
   pinMode(ent, INPUT);
 
+  // initalise the servos
   leftServo.attach(A1);
   rightServo.attach(A2);
 
-  leftServo.write(90);
-  delay(15);
-  rightServo.write(90);
-  delay(15);
+  sitIdle(); // put servos in idle position
 
   Serial.begin(9600);
-  startup();
+  startup(); // fancy lights
 }
 
 void loop() {
-  if (changeBattery) {
-    if (millis() >= batteryFlashTime) {
-      batteryFlashTime += batteryFlashDelay;
-      batteryToggle = !batteryToggle;
-      light(1, batteryToggle);
-    }
-  }
+
   batteryCheck();
   buttonCheck();
 
-  //default sit idle
-  leftServo.write(90);
-  delay(15);
-  rightServo.write(90);
-  delay(15);
+  sitIdle(); // put servos in idle position
 }
 
 void startup() {
@@ -297,6 +288,14 @@ void batteryCheck(){
     light(2, true);
     light(3, true);
   }
+
+  if (changeBattery) {
+    if (millis() >= batteryFlashTime) {
+      batteryFlashTime += batteryFlashDelay;
+      batteryToggle = !batteryToggle;
+      light(1, batteryToggle);
+    }
+  }
 }     
 
 void light(int led, boolean state) {
@@ -359,4 +358,5 @@ void light(int led, boolean state) {
     break;
   }
 }
+
 
