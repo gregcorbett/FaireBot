@@ -1,18 +1,18 @@
 /*--------------------------------------------------------------------
-  FaireBot control firmware rev. 110714
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL BE
-  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
---------------------------------------------------------------------*/
+ FaireBot control firmware rev. 110714
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL BE
+ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ --------------------------------------------------------------------*/
 
 
 #include <Servo.h>
@@ -62,13 +62,13 @@ void setup() {
   pinMode(bckLED, OUTPUT);
   pinMode(lftLED, OUTPUT);
   pinMode(rhtLED, OUTPUT);
-  
+
   pinMode(fwd, INPUT);
   pinMode(bck, INPUT);
   pinMode(lft, INPUT);
   pinMode(rht, INPUT);
   pinMode(ent, INPUT);
-  
+
   leftServo.attach(A1);
   rightServo.attach(A2);
 
@@ -76,7 +76,7 @@ void setup() {
   delay(15);
   rightServo.write(90);
   delay(15);
-  
+
   Serial.begin(9600);
   startup();
 }
@@ -91,7 +91,7 @@ void loop() {
   }
   batteryCheck();
   buttonCheck();
-  
+
   //default sit idle
   leftServo.write(90);
   delay(15);
@@ -125,8 +125,8 @@ void startup() {
 }
 
 void addToMemory(int dir){
- memory[memoryPtr] = dir;
- memoryPtr++; 
+  memory[memoryPtr] = dir;
+  memoryPtr++; 
 }
 
 void buttonCheck(){
@@ -190,13 +190,13 @@ void buttonCheck(){
         startup();
         return; 
       }
-      
+
     }
     wait();
     run();
   }
 }
- 
+
 void wait() {
   int countDownDelay = 500;
   light(7, false);
@@ -232,21 +232,21 @@ void wait() {
 
 void run() {
   int command;
-   for (int i = 0; i < memoryPtr; i++) {
-     command = memory[i];
-     if (command == fwd) {
-       forward();
-     }
-     else if (command == bck) {
-       reverse();
-     }
-     else if (command == lft) {
-       left();
-     }
-     else if (command == rht) {
-       right();
-     }
-   }
+  for (int i = 0; i < memoryPtr; i++) {
+    command = memory[i];
+    if (command == fwd) {
+      forward();
+    }
+    else if (command == bck) {
+      reverse();
+    }
+    else if (command == lft) {
+      left();
+    }
+    else if (command == rht) {
+      right();
+    }
+  }
 }
 
 void error() {
@@ -298,61 +298,62 @@ void batteryCheck(){
 
 void light(int led, boolean state) {
   switch (led) {
-    case 1:
-      if (state) {
-        digitalWrite(lowLED, HIGH);
-      }
-      else {
-        digitalWrite(lowLED, LOW);
-      }
-      break;
-    case 2:
-      if (state) {
-        digitalWrite(midLED, HIGH);
-      }
-      else {
-        digitalWrite(midLED, LOW);
-      }
-      break;
-    case 3:
-      if (state) {
-        digitalWrite(highLED, HIGH);
-      }
-      else {
-        digitalWrite(highLED, LOW);
-      }
-      break;
-    case 4:
-      if (state) {
-        digitalWrite(bckLED, HIGH);
-      }
-      else {
-        digitalWrite(bckLED, LOW);
-      }
-      break;
-    case 5:
-      if (state) {
-        digitalWrite(lftLED, HIGH);
-      }
-      else {
-        digitalWrite(lftLED, LOW);
-      }
-      break;
-    case 6:
-      if (state) {
-        digitalWrite(rhtLED, HIGH);
-      }
-      else {
-        digitalWrite(rhtLED, LOW);
-      }
-      break;
-    case 7:
-      if (state) {
-        digitalWrite(fwdLED, HIGH);
-      }
-      else {
-        digitalWrite(fwdLED, LOW);
-      }
-      break;
+  case 1:
+    if (state) {
+      digitalWrite(lowLED, HIGH);
+    }
+    else {
+      digitalWrite(lowLED, LOW);
+    }
+    break;
+  case 2:
+    if (state) {
+      digitalWrite(midLED, HIGH);
+    }
+    else {
+      digitalWrite(midLED, LOW);
+    }
+    break;
+  case 3:
+    if (state) {
+      digitalWrite(highLED, HIGH);
+    }
+    else {
+      digitalWrite(highLED, LOW);
+    }
+    break;
+  case 4:
+    if (state) {
+      digitalWrite(bckLED, HIGH);
+    }
+    else {
+      digitalWrite(bckLED, LOW);
+    }
+    break;
+  case 5:
+    if (state) {
+      digitalWrite(lftLED, HIGH);
+    }
+    else {
+      digitalWrite(lftLED, LOW);
+    }
+    break;
+  case 6:
+    if (state) {
+      digitalWrite(rhtLED, HIGH);
+    }
+    else {
+      digitalWrite(rhtLED, LOW);
+    }
+    break;
+  case 7:
+    if (state) {
+      digitalWrite(fwdLED, HIGH);
+    }
+    else {
+      digitalWrite(fwdLED, LOW);
+    }
+    break;
   }
 }
+
