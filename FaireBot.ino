@@ -18,36 +18,42 @@
 #include <Servo.h>
 #include <EEPROM.h>
 
-int forwardLoopVal = 30;  //change for servo forward/backward tuning
-int turningLoopVal = 11;  //change for servo turn tuning
-int delayReplay = 1000;   //change for dleay between replaying commands
+int forwardLoopVal = 30;  // change for servo forward/backward tuning
+int turningLoopVal = 11;  // change for servo turn tuning
+int delayReplay = 1000;   // change for dleay between replaying commands
 
-int lowLED = 13;
-int midLED = 12;
-int highLED = 11;
-int bckLED = 10;
-int rhtLED = 9;
-int fwdLED = 8;
-int lftLED = 7;
+int lowLED = 13; // the pin number signifying a low battery
+int midLED = 12; // the pin number signifying a medium-full battery
+int highLED = 11; // the pin number signifying a full battery
+int bckLED = 10; // the pin number signifying when the back button is pressed
+int rhtLED = 9; // the pin number signifying when the right button is pressed
+int fwdLED = 8; // the pin number signifying when the forward button is pressed
+int lftLED = 7; // the pin number signifying when the left button is pressed
 
-int fwd = 3;
-int bck = 5;
-int lft = 6;
-int rht = 2;
-int ent = 4;
+int fwd = 3; // the pin number signifying the forward button is pressed
+int bck = 5; // the pin number signifying the backwards button is pressed
+int lft = 6; // the pin number signifying the left button is pressed
+int rht = 2; // the pin number signifying the right button is pressed
+int ent = 4; // the pin number signifying the go/clear button is pressed
 
+// stuff to determine if the battery needs to be changed
 int usbLev = 512;
 int batteryLowLev = 717;
 int batteryMidLev = 800;
 int batteryHighLev = 875;
-boolean changeBattery = false;
-boolean batteryToggle = false;
+
+boolean changeBattery = false; // true iff the battery needs changing
+
+// used to make the battery flash
+boolean batteryToggle = false; 
 int batteryFlashDelay = 100;
 unsigned long batteryFlashTime;
 
-Servo leftServo; //180
+// define the servos
+Servo leftServo;
 Servo rightServo;
 
+// define space to store the commands and a pointer to help iterate through them
 int memory[100];
 int memoryPtr = 0;
 
