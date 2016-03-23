@@ -186,17 +186,17 @@ void run() {
 }
 
 void error() {
-  for (int i = 0; i < 4; i++){
+  for (int i = 0; i < 5; i++){
     light(4, true);
     light(5, true);
     light(6, true);
     light(7, true);
-    delay(50);
+    delay(150);
     light(4, false);
     light(5, false);
     light(6, false);
     light(7, false);
-    delay(50);
+    delay(150);
   }
 }
 
