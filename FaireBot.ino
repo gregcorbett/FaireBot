@@ -166,39 +166,6 @@ void buttonCheck(){
   }
 }
 
-void wait() {
-  int countDownDelay = 500;
-  light(7, false);
-  light(6, false);
-  light(4, false);
-  light(5, false);
-  delay(countDownDelay);
-  light(7, true);
-  light(6, false);
-  light(4, false);
-  light(5, false);
-  delay(countDownDelay);
-  light(7, true);
-  light(6, true);
-  light(4, false);
-  light(5, false);
-  delay(countDownDelay);
-  light(7, true);
-  light(6, true);
-  light(4, true);
-  light(5, false);
-  delay(countDownDelay);
-  light(7, true);
-  light(6, true);
-  light(4, true);
-  light(5, true);
-  delay(countDownDelay);
-  light(7, false);
-  light(6, false);
-  light(4, false);
-  light(5, false);
-}
-
 void run() {
   int command;
   for (int i = 0; i < memoryPtr; i++) {
