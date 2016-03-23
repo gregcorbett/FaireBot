@@ -18,9 +18,6 @@
 #include <Servo.h>
 #include <EEPROM.h>
 
-int addr = 0;
-int upperAddr = 0;
-
 int forwardLoopVal = 30;  //change for servo forward/backward tuning
 int turningLoopVal = 11;  //change for servo turn tuning
 int delayReplay = 1000;   //change for dleay between replaying commands
