@@ -153,7 +153,6 @@ void buttonCheck(){
       delay(1);
       timePressed = timePressed + 1;
       if (timePressed > 3000){
-        memory[100];
         memoryPtr = 0;
         startup();
         return; 
