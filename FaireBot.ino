@@ -80,7 +80,7 @@ void setup() {
 
   sitIdle(); // put servos in idle position
 
-  Serial.begin(9600);
+  Serial.begin(9600); // set up serial for any future communication
   startup(); // fancy lights
 }
 
