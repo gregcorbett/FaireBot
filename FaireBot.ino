@@ -89,7 +89,6 @@ void loop() {
   batteryCheck();
   buttonCheck();
 
-  sitIdle(); // put servos in idle position
 }
 
 void addToMemory(int dir){
