@@ -25,14 +25,14 @@ int lowLED = 13; // the pin number signifying a low battery
 int midLED = 12; // the pin number signifying a medium-full battery
 int highLED = 11; // the pin number signifying a full battery
 int bckLED = 10; // the pin number signifying when the back button is pressed
-int rhtLED = 9; // the pin number signifying when the right button is pressed
+int rhtLED = 7; // the pin number signifying when the right button is pressed
 int fwdLED = 8; // the pin number signifying when the forward button is pressed
-int lftLED = 7; // the pin number signifying when the left button is pressed
+int lftLED = 9; // the pin number signifying when the left button is pressed
 
 int fwd = 3; // the pin number signifying the forward button is pressed
 int bck = 5; // the pin number signifying the backwards button is pressed
-int lft = 6; // the pin number signifying the left button is pressed
-int rht = 2; // the pin number signifying the right button is pressed
+int lft = 2; // the pin number signifying the left button is pressed
+int rht = 6; // the pin number signifying the right button is pressed
 int ent = 4; // the pin number signifying the go/clear button is pressed
 
 // stuff to determine if the battery needs to be changed
